@@ -66,7 +66,7 @@ export const AboutSection: React.FC = () => {
           {/* Text & Pillars Side */}
           <div className="lg:col-span-6 space-y-6">
             <div className="text-xs font-semibold tracking-wider text-teal-800 uppercase">
-              The {settings.clinic_name || 'Lumina Dental Studio'} Difference
+              The {settings.clinic_name || 'PearlDent Oral Care'} Difference
             </div>
 
             <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-950 tracking-tight" style={{ textWrap: 'balance' }}>

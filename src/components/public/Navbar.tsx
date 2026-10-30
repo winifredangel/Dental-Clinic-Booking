@@ -25,7 +25,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAdmin, onBookNow }) => {
             </div>
             <div className="flex flex-col">
               <span className="text-xl font-bold tracking-tight text-slate-950 font-sans">
-                {settings.clinic_name || 'Lumina Dental Studio'}
+                {settings.clinic_name || 'PearlDent Oral Care'}
               </span>
               <span className="text-xs text-slate-500 hidden sm:inline">Modern Dentistry & Oral Wellness</span>
             </div>
@@ -47,18 +47,16 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAdmin, onBookNow }) => {
             </a>
           </nav>
 
-          {/* Zone 3: 1 primary action + subtle staff login affordance */}
-          <div className="flex items-center gap-4 shrink-0">
-            {settings.clinic_phone && (
-              <a
-                href={`tel:${settings.clinic_phone}`}
-                className="hidden lg:flex items-center gap-2 text-xs font-medium text-slate-700 hover:text-teal-700 transition-colors"
-                title="Call Clinic"
-              >
-                <PhoneCall className="w-3.5 h-3.5 text-teal-600" />
-                <span>{settings.clinic_phone}</span>
-              </a>
-            )}
+          {/* Zone 3: 1 primary action + prominent phone + subtle staff login affordance */}
+          <div className="flex items-center gap-3 shrink-0">
+            <a
+              href={`tel:${settings.clinic_phone || '09160336411'}`}
+              className="hidden sm:flex items-center gap-2 text-xs sm:text-sm font-bold text-slate-800 hover:text-teal-800 bg-teal-50/90 hover:bg-teal-100/90 px-3 py-2 rounded-xl border border-teal-200/80 transition-all shadow-xs"
+              title="Call PearlDent Oral Care"
+            >
+              <PhoneCall className="w-3.5 h-3.5 text-teal-600 shrink-0" />
+              <span className="tabular-nums">{settings.clinic_phone || '09160336411'}</span>
+            </a>
 
             <button
               onClick={onBookNow}

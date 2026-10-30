@@ -3,6 +3,8 @@ import { useClinic } from '../../context/ClinicContext';
 import { Service } from '../../types/database';
 import { CLINIC_IMAGES } from '../../assets/clinicImages';
 import { Clock, ArrowRight, CheckCircle2, Sparkles } from 'lucide-react';
+import { formatCurrency } from '../../lib/formatters';
+
 
 interface ServicesSectionProps {
   onSelectServiceToBook: (service: Service) => void;
@@ -86,7 +88,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectServic
                         <span className="tabular-nums">{service.duration_minutes} min</span>
                       </div>
                       <div className="text-lg font-bold text-white bg-black/40 backdrop-blur-xs px-2.5 py-0.5 rounded-md tabular-nums">
-                        ${Number(service.price).toFixed(2)}
+                        {formatCurrency(service.price)}
                       </div>
                     </div>
                   </div>

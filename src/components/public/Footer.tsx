@@ -1,15 +1,19 @@
 import React from 'react';
 import { useClinic } from '../../context/ClinicContext';
 import { WEEKDAYS } from '../../lib/dateUtils';
-import { MapPin, Phone, Mail, Clock, Shield, Sparkles } from 'lucide-react';
+import { MapPin, Phone, Mail, Clock, Shield } from 'lucide-react';
 
 interface FooterProps {
   onOpenAdmin: () => void;
-  onOpenSqlModal: () => void;
+  onOpenSqlModal?: () => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ onOpenAdmin, onOpenSqlModal }) => {
+export const Footer: React.FC<FooterProps> = ({ onOpenAdmin }) => {
   const { settings, businessHours } = useClinic();
+
+  const displayEmail = settings.clinic_email && !settings.clinic_email.includes('brightsmile') && !settings.clinic_email.includes('luminadental')
+    ? settings.clinic_email
+    : 'winifredmaduabuchi368@gmail.com';
 
   return (
     <footer id="contact" className="bg-slate-900 text-slate-400 border-t border-slate-800">
@@ -24,15 +28,12 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAdmin, onOpenSqlModal }) =
                 </svg>
               </div>
               <span className="text-lg font-bold tracking-tight text-white">
-                {settings.clinic_name || 'Lumina Dental Studio'}
+                {settings.clinic_name || 'PearlDent Oral Care'}
               </span>
             </div>
             <p className="text-xs leading-relaxed text-slate-400">
               Gentle, high-precision dental care for families and individuals. Committed to preventative wellness, comfort, and restorative dentistry.
             </p>
-            <div className="text-[11px] text-teal-400">
-              American Dental Association (ADA) Clinical Standards
-            </div>
           </div>
 
           {/* Contact Details */}
@@ -43,18 +44,18 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAdmin, onOpenSqlModal }) =
             <ul className="space-y-3 text-xs">
               <li className="flex items-start gap-2.5">
                 <MapPin className="w-4 h-4 text-teal-400 shrink-0 mt-0.5" />
-                <span className="text-slate-300">{settings.clinic_address}</span>
+                <span className="text-slate-300">No.17 Rufus Nduba Creasent, Dawaki, Abuja.</span>
               </li>
               <li className="flex items-center gap-2.5">
                 <Phone className="w-4 h-4 text-teal-400 shrink-0" />
-                <a href={`tel:${settings.clinic_phone}`} className="text-slate-300 hover:text-white transition-colors">
-                  {settings.clinic_phone}
+                <a href={`tel:${settings.clinic_phone || '09160336411'}`} className="text-slate-300 hover:text-white transition-colors">
+                  {settings.clinic_phone || '09160336411'}
                 </a>
               </li>
               <li className="flex items-center gap-2.5">
                 <Mail className="w-4 h-4 text-teal-400 shrink-0" />
-                <a href={`mailto:${settings.clinic_email}`} className="text-slate-300 hover:text-white transition-colors">
-                  {settings.clinic_email}
+                <a href={`mailto:${displayEmail}`} className="text-slate-300 hover:text-white transition-colors">
+                  {displayEmail}
                 </a>
               </li>
             </ul>
@@ -104,14 +105,6 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAdmin, onOpenSqlModal }) =
                   Staff & Admin Portal
                 </button>
               </li>
-              <li>
-                <button
-                  onClick={onOpenSqlModal}
-                  className="inline-flex items-center gap-1.5 text-[11px] text-slate-500 hover:text-slate-300 cursor-pointer"
-                >
-                  Supabase Schema SQL
-                </button>
-              </li>
             </ul>
           </div>
         </div>
@@ -119,7 +112,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAdmin, onOpenSqlModal }) =
         {/* Bottom row */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
           <div>
-            © {new Date().getFullYear()} {settings.clinic_name || 'Lumina Dental Studio'}. All rights reserved.
+            © {new Date().getFullYear()} {settings.clinic_name || 'PearlDent Oral Care'}. All rights reserved.
           </div>
           <div className="flex items-center gap-4">
             <span>HIPAA Compliant</span>

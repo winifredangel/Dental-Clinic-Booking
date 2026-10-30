@@ -123,7 +123,7 @@ export const AdminLogin: React.FC<AdminLoginProps> = ({ onBackToWebsite, onOpenS
                   type="email"
                   required
                   autoComplete="email"
-                  placeholder="admin@luminadentalstudio.com"
+                  placeholder="winifredmaduabuchi368@gmail.com"
                   value={email}
                   onChange={e => setEmail(e.target.value)}
                   className="w-full bg-slate-900 border border-slate-700 rounded-xl pl-10 pr-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-teal-500 focus:ring-1 focus:ring-teal-500"

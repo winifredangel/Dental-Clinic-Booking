@@ -80,7 +80,7 @@ export const Hero: React.FC<HeroProps> = ({ onBookNow, onExploreServices }) => {
             <div className="relative rounded-2xl overflow-hidden border border-slate-200/90 shadow-xl shadow-slate-900/5 bg-slate-100 group">
               <img
                 src={CLINIC_IMAGES.hero}
-                alt="Modern, bright Lumina Dental Studio reception and clinical care suites"
+                alt="Modern, bright PearlDent Oral Care reception and clinical care suites"
                 className="w-full h-[400px] sm:h-[480px] lg:h-[500px] object-cover object-center group-hover:scale-[1.02] transition-transform duration-700"
                 referrerPolicy="no-referrer"
               />
@@ -93,10 +93,10 @@ export const Hero: React.FC<HeroProps> = ({ onBookNow, onExploreServices }) => {
                 <div className="flex items-center justify-between gap-2">
                   <div>
                     <h3 className="text-sm font-bold text-slate-900">
-                      {settings.clinic_name || 'Lumina Dental Studio'}
+                      {settings.clinic_name || 'PearlDent Oral Care'}
                     </h3>
                     <p className="text-xs text-slate-500 mt-0.5">
-                      Private Patient Operatory · Seattle, WA
+                      Private Patient Operatory · Dawaki, Abuja
                     </p>
                   </div>
                   <div className="text-right shrink-0">

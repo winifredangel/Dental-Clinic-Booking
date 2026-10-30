@@ -102,7 +102,7 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({ onBackToWebsite, onOpe
               </div>
               <div className="overflow-hidden">
                 <div className="font-bold text-sm text-white truncate">
-                  {settings.clinic_name || 'Lumina Dental'}
+                  {settings.clinic_name || 'PearlDent Oral Care'}
                 </div>
                 <div className="text-[11px] text-teal-400 font-medium">Dental Office Portal</div>
               </div>

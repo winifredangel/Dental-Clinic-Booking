@@ -11,6 +11,8 @@ import {
   XCircle,
   Sparkles,
 } from 'lucide-react';
+import { formatCurrency } from '../../lib/formatters';
+
 
 interface ServicesViewProps {
   onOpenServiceModal: (service?: Service) => void;
@@ -110,7 +112,7 @@ export const ServicesView: React.FC<ServicesViewProps> = ({ onOpenServiceModal }
                       {/* Price */}
                       <td className="py-4 px-4 whitespace-nowrap">
                         <div className="font-bold text-slate-900 tabular-nums">
-                          ${Number(service.price).toFixed(2)}
+                          {formatCurrency(service.price)}
                         </div>
                       </td>
 

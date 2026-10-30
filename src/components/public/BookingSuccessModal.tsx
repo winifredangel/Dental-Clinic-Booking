@@ -17,6 +17,8 @@ import {
   Download,
   X,
 } from 'lucide-react';
+import { formatCurrency } from '../../lib/formatters';
+
 
 interface BookingSuccessModalProps {
   appointment: Appointment;
@@ -46,9 +48,9 @@ export const BookingSuccessModal: React.FC<BookingSuccessModalProps> = ({
     const icsContent = [
       'BEGIN:VCALENDAR',
       'VERSION:2.0',
-      'PRODID:-//Lumina Dental Studio//Appointment//EN',
+      'PRODID:-//PearlDent Oral Care//Appointment//EN',
       'BEGIN:VEVENT',
-      `UID:${appointment.id}@luminadentalstudio.com`,
+      `UID:${appointment.id}@pearldentoralcare.com`,
       `DTSTAMP:${toIcsDate(new Date())}Z`,
       `DTSTART:${startIcs}`,
       `DTEND:${endIcs}`,
@@ -98,7 +100,10 @@ export const BookingSuccessModal: React.FC<BookingSuccessModalProps> = ({
         <div className="p-5 bg-slate-50 rounded-2xl border border-slate-200/80 space-y-3.5 text-xs text-slate-700">
           <div className="flex items-center justify-between pb-3 border-b border-slate-200">
             <span className="text-slate-500">Service:</span>
-            <span className="font-bold text-slate-900 text-sm">{service.name}</span>
+            <div className="text-right">
+              <span className="font-bold text-slate-900 text-sm block">{service.name}</span>
+              <span className="text-[11px] text-teal-700 font-bold tabular-nums">Fee: {formatCurrency(service.price)}</span>
+            </div>
           </div>
 
           <div className="flex items-start justify-between">

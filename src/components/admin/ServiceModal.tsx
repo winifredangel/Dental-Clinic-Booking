@@ -14,7 +14,7 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({ serviceToEdit, onClo
   const [name, setName] = useState<string>(serviceToEdit?.name || '');
   const [description, setDescription] = useState<string>(serviceToEdit?.description || '');
   const [durationMinutes, setDurationMinutes] = useState<number>(serviceToEdit?.duration_minutes || 45);
-  const [price, setPrice] = useState<number>(serviceToEdit?.price || 150);
+  const [price, setPrice] = useState<number>(serviceToEdit?.price || 35000);
   const [isActive, setIsActive] = useState<boolean>(serviceToEdit ? serviceToEdit.is_active : true);
 
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
@@ -147,16 +147,19 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({ serviceToEdit, onClo
 
             <div>
               <label htmlFor="price" className="block text-xs font-bold text-slate-700 mb-1">
-                Price (USD) *
+                Price (₦ / Naira) *
               </label>
               <div className="relative">
-                <DollarSign className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
+                <span className="w-4 h-4 text-slate-500 font-bold text-sm absolute left-3 top-2.5 flex items-center justify-center">
+                  ₦
+                </span>
                 <input
                   id="price"
                   type="number"
                   required
                   min={0}
-                  step={0.01}
+                  step={100}
+                  placeholder="35000"
                   value={price}
                   onChange={e => setPrice(parseFloat(e.target.value) || 0)}
                   className="w-full bg-slate-50 border border-slate-300 rounded-xl pl-9 pr-3 py-2 text-sm text-slate-900 focus:bg-white focus:outline-teal-600 tabular-nums"

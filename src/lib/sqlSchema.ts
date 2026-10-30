@@ -143,10 +143,10 @@ CREATE POLICY "Admins can view admin_users" ON public.admin_users
 -- Initial Clinic Settings Seed
 INSERT INTO public.clinic_settings (clinic_name, clinic_email, clinic_phone, clinic_address, slot_interval_minutes, booking_notice_hours)
 VALUES (
-    'Lumina Dental Studio',
-    'care@luminadentalstudio.com',
-    '(555) 839-2041',
-    '742 Evergreen Medical Pavilion, Suite 400, Seattle, WA',
+    'PearlDent Oral Care',
+    'winifredmaduabuchi368@gmail.com',
+    '09160336411',
+    'No.17 Rufus Nduba Creasent, Dawaki, Abuja.',
     30,
     2
 ) ON CONFLICT DO NOTHING;
@@ -164,12 +164,12 @@ ON CONFLICT (weekday) DO NOTHING;
 
 -- Initial Services Seed
 INSERT INTO public.services (name, description, duration_minutes, price, is_active) VALUES
-('Comprehensive Exam & Hygiene', 'Full mouth digital examination, high-definition ultrasonic cleaning, periodontal assessment, and fluoride therapy.', 60, 185.00, true),
-('Advanced Ultrasonic Cleaning', 'Gentle stain removal, calculus scaling, polish, and microbiome gum care for clean, revitalized teeth.', 45, 140.00, true),
-('Laser Smile Whitening', 'In-office professional dental enamel whitening delivering up to 6 shades brighter in a single comfortable visit.', 60, 395.00, true),
-('Composite Tooth Restoration', 'Seamless aesthetic tooth-colored resin filling for cavities or chip repair with natural tooth translucency.', 45, 220.00, true),
-('Cosmetic Smile Consultation', 'Digital smile simulation, veneer evaluation, orthodontic alignment preview, and custom aesthetic roadmap.', 30, 95.00, true),
-('Emergency Dental Consultation', 'Same-day urgent relief, diagnostic digital X-rays, trauma assessment, and immediate pain intervention.', 45, 175.00, true)
+('Comprehensive Exam & Hygiene', 'Full mouth digital examination, high-definition ultrasonic cleaning, periodontal assessment, and fluoride therapy.', 60, 35000.00, true),
+('Advanced Ultrasonic Cleaning', 'Gentle stain removal, calculus scaling, polish, and microbiome gum care for clean, revitalized teeth.', 45, 25000.00, true),
+('Laser Smile Whitening', 'In-office professional dental enamel whitening delivering up to 6 shades brighter in a single comfortable visit.', 60, 85000.00, true),
+('Composite Tooth Restoration', 'Seamless aesthetic tooth-colored resin filling for cavities or chip repair with natural tooth translucency.', 45, 45000.00, true),
+('Cosmetic Smile Consultation', 'Digital smile simulation, veneer evaluation, orthodontic alignment preview, and custom aesthetic roadmap.', 30, 20000.00, true),
+('Emergency Dental Consultation', 'Same-day urgent relief, diagnostic digital X-rays, trauma assessment, and immediate pain intervention.', 45, 30000.00, true)
 ON CONFLICT DO NOTHING;
 `;
 

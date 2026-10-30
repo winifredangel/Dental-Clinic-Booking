@@ -11,10 +11,10 @@ import { supabase, isSupabaseConfigured } from '../lib/supabase';
 
 // Fallback initial state ensuring UI works smoothly during setup
 export const DEFAULT_CLINIC_SETTINGS: ClinicSettings = {
-  clinic_name: 'Lumina Dental Studio',
-  clinic_email: 'care@luminadentalstudio.com',
-  clinic_phone: '(555) 839-2041',
-  clinic_address: '742 Evergreen Medical Pavilion, Suite 400, Seattle, WA',
+  clinic_name: 'PearlDent Oral Care',
+  clinic_email: 'winifredmaduabuchi368@gmail.com',
+  clinic_phone: '09160336411',
+  clinic_address: 'No.17 Rufus Nduba Creasent, Dawaki, Abuja.',
   slot_interval_minutes: 30,
   booking_notice_hours: 2,
 };
@@ -35,7 +35,7 @@ export const DEFAULT_SERVICES: Service[] = [
     name: 'Comprehensive Exam & Hygiene',
     description: 'Full mouth digital examination, high-definition ultrasonic cleaning, periodontal assessment, and fluoride therapy.',
     duration_minutes: 60,
-    price: 185,
+    price: 35000,
     is_active: true,
   },
   {
@@ -43,7 +43,7 @@ export const DEFAULT_SERVICES: Service[] = [
     name: 'Advanced Ultrasonic Cleaning',
     description: 'Gentle stain removal, calculus scaling, polish, and microbiome gum care for clean, revitalized teeth.',
     duration_minutes: 45,
-    price: 140,
+    price: 25000,
     is_active: true,
   },
   {
@@ -51,7 +51,7 @@ export const DEFAULT_SERVICES: Service[] = [
     name: 'Laser Smile Whitening',
     description: 'In-office professional dental enamel whitening delivering up to 6 shades brighter in a single comfortable visit.',
     duration_minutes: 60,
-    price: 395,
+    price: 85000,
     is_active: true,
   },
   {
@@ -59,7 +59,7 @@ export const DEFAULT_SERVICES: Service[] = [
     name: 'Composite Tooth Restoration',
     description: 'Seamless aesthetic tooth-colored resin filling for cavities or chip repair with natural tooth translucency.',
     duration_minutes: 45,
-    price: 220,
+    price: 45000,
     is_active: true,
   },
   {
@@ -67,7 +67,7 @@ export const DEFAULT_SERVICES: Service[] = [
     name: 'Cosmetic Smile Consultation',
     description: 'Digital smile simulation, veneer evaluation, orthodontic alignment preview, and custom aesthetic roadmap.',
     duration_minutes: 30,
-    price: 95,
+    price: 20000,
     is_active: true,
   },
   {
@@ -75,7 +75,7 @@ export const DEFAULT_SERVICES: Service[] = [
     name: 'Emergency Dental Consultation',
     description: 'Same-day urgent relief, diagnostic digital X-rays, trauma assessment, and immediate pain intervention.',
     duration_minutes: 45,
-    price: 175,
+    price: 30000,
     is_active: true,
   },
 ];
@@ -142,7 +142,24 @@ export const ClinicProvider: React.FC<{ children: React.ReactNode }> = ({ childr
 
       if (setErr) throw setErr;
       if (settingsData) {
-        setSettings(settingsData);
+        const isLegacyName = !settingsData.clinic_name ||
+          settingsData.clinic_name === 'Lumina Dental Studio' ||
+          settingsData.clinic_name.toLowerCase().includes('bright smile');
+        const isLegacyPhone = !settingsData.clinic_phone || settingsData.clinic_phone.includes('555');
+        const isLegacyAddress = !settingsData.clinic_address || settingsData.clinic_address.includes('Seattle');
+        const isLegacyEmail = !settingsData.clinic_email ||
+          settingsData.clinic_email.includes('luminadental') ||
+          settingsData.clinic_email.includes('brightsmile') ||
+          settingsData.clinic_email.includes('bright-smile');
+
+        const resolvedSettings: ClinicSettings = {
+          ...settingsData,
+          clinic_name: isLegacyName ? 'PearlDent Oral Care' : settingsData.clinic_name,
+          clinic_phone: isLegacyPhone ? '09160336411' : settingsData.clinic_phone,
+          clinic_address: isLegacyAddress ? 'No.17 Rufus Nduba Creasent, Dawaki, Abuja.' : settingsData.clinic_address,
+          clinic_email: isLegacyEmail ? 'winifredmaduabuchi368@gmail.com' : settingsData.clinic_email,
+        };
+        setSettings(resolvedSettings);
       }
 
       // 3. Fetch Business Hours

@@ -12,6 +12,7 @@ import { Footer } from './components/public/Footer';
 import { SqlSetupModal } from './components/public/SqlSetupModal';
 import { AdminLogin } from './components/admin/AdminLogin';
 import { AdminLayout } from './components/admin/AdminLayout';
+import { FloatingWhatsApp } from './components/public/FloatingWhatsApp';
 import { Database, AlertTriangle, ShieldCheck, Sparkles, Loader2 } from 'lucide-react';
 
 const MainAppContent: React.FC = () => {
@@ -170,6 +171,12 @@ const MainAppContent: React.FC = () => {
       <Footer
         onOpenAdmin={() => setViewMode('admin')}
         onOpenSqlModal={() => setIsSqlModalOpen(true)}
+      />
+
+      {/* Floating WhatsApp Widget */}
+      <FloatingWhatsApp
+        phoneNumber="2349160336411"
+        customMessage="welcome to dental clinic , please make your request,thank you."
       />
 
       {/* SQL Setup Modal */}

@@ -8,6 +8,8 @@ import {
   formatDateToISO,
 } from '../../lib/dateUtils';
 import { X, Calendar, Clock, User, Phone, Mail, FileText, CheckCircle2 } from 'lucide-react';
+import { formatCurrency } from '../../lib/formatters';
+
 
 interface AppointmentModalProps {
   appointment?: Appointment | null;
@@ -167,7 +169,7 @@ export const AppointmentModal: React.FC<AppointmentModalProps> = ({
               >
                 {services.map(s => (
                   <option key={s.id} value={s.id}>
-                    {s.name} ({s.duration_minutes} min - ${Number(s.price).toFixed(2)})
+                    {s.name} ({s.duration_minutes} min - {formatCurrency(s.price)})
                   </option>
                 ))}
               </select>

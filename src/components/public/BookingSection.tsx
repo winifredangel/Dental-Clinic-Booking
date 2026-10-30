@@ -26,6 +26,8 @@ import {
 } from 'lucide-react';
 import { BookingSuccessModal } from './BookingSuccessModal';
 import { RLS_FIX_SQL } from '../../lib/sqlSchema';
+import { formatCurrency } from '../../lib/formatters';
+
 
 interface BookingSectionProps {
   selectedServiceFromParent?: Service | null;
@@ -294,7 +296,7 @@ export const BookingSection: React.FC<BookingSectionProps> = ({
                             {service.name}
                           </h4>
                           <span className="text-sm font-bold text-teal-800 tabular-nums shrink-0">
-                            ${Number(service.price).toFixed(2)}
+                            {formatCurrency(service.price)}
                           </span>
                         </div>
                         <p className="text-xs text-slate-600 leading-relaxed line-clamp-2">
@@ -345,7 +347,7 @@ export const BookingSection: React.FC<BookingSectionProps> = ({
                     <span aria-hidden="true">·</span>
                     <span className="tabular-nums">{selectedService.duration_minutes} mins</span>
                     <span aria-hidden="true">·</span>
-                    <span className="tabular-nums">${Number(selectedService.price).toFixed(2)}</span>
+                    <span className="tabular-nums">{formatCurrency(selectedService.price)}</span>
                   </div>
                 </div>
                 <button
@@ -545,7 +547,7 @@ export const BookingSection: React.FC<BookingSectionProps> = ({
                   <div>
                     <span className="text-slate-500 block">Duration & Fee:</span>
                     <span className="font-bold text-slate-900 tabular-nums">
-                      {selectedService.duration_minutes} min · ${Number(selectedService.price).toFixed(2)}
+                      {selectedService.duration_minutes} min · {formatCurrency(selectedService.price)}
                     </span>
                   </div>
                 </div>
