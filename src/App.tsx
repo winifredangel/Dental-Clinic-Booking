@@ -70,7 +70,14 @@ const MainAppContent: React.FC = () => {
       return (
         <>
           <AdminLayout
-            onBackToWebsite={() => setViewMode('public')}
+            onBackToWebsite={() => {
+              setPreviewAdminUnlocked(false);
+              setViewMode('public');
+            }}
+            onSignOut={() => {
+              setPreviewAdminUnlocked(false);
+              setViewMode('public');
+            }}
             onOpenSqlModal={() => setIsSqlModalOpen(true)}
           />
           {isSqlModalOpen && (
@@ -99,7 +106,10 @@ const MainAppContent: React.FC = () => {
           )}
 
           <AdminLogin
-            onBackToWebsite={() => setViewMode('public')}
+            onBackToWebsite={() => {
+              setPreviewAdminUnlocked(false);
+              setViewMode('public');
+            }}
             onOpenSqlModal={() => setIsSqlModalOpen(true)}
           />
         </div>
@@ -113,34 +123,6 @@ const MainAppContent: React.FC = () => {
   // Public Clinic Website View
   return (
     <div className="min-h-screen flex flex-col bg-slate-50/50">
-      {/* Configuration Helper Banner if Supabase not configured */}
-      {!isSupabaseConfigured && (
-        <div className="bg-teal-900 text-teal-100 text-xs py-2 px-4 border-b border-teal-800">
-          <div className="max-w-7xl mx-auto flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-            <div className="flex items-center gap-2">
-              <Database className="w-4 h-4 text-teal-300 shrink-0" />
-              <span>
-                <strong>Supabase Connection:</strong> Ready to connect. Add your credentials to <code className="bg-teal-950 px-1.5 py-0.5 rounded text-[11px]">.env</code> or copy the SQL schema.
-              </span>
-            </div>
-            <div className="flex items-center gap-3">
-              <button
-                onClick={() => setIsSqlModalOpen(true)}
-                className="underline hover:text-white font-semibold cursor-pointer"
-              >
-                View 1-Click Database SQL
-              </button>
-              <button
-                onClick={() => setViewMode('admin')}
-                className="px-2.5 py-0.5 bg-teal-700 hover:bg-teal-600 rounded text-white font-semibold cursor-pointer"
-              >
-                Staff Portal
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
       {/* Public Navbar */}
       <Navbar
         onOpenAdmin={() => setViewMode('admin')}

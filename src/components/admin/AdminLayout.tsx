@@ -28,14 +28,29 @@ import {
 interface AdminLayoutProps {
   onBackToWebsite: () => void;
   onOpenSqlModal: () => void;
+  onSignOut?: () => void;
 }
 
-export const AdminLayout: React.FC<AdminLayoutProps> = ({ onBackToWebsite, onOpenSqlModal }) => {
+export const AdminLayout: React.FC<AdminLayoutProps> = ({ onBackToWebsite, onOpenSqlModal, onSignOut }) => {
   const { user, signOut } = useAuth();
   const { settings, appointments } = useClinic();
 
   const [currentTab, setCurrentTab] = useState<string>('overview');
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
+
+  const handleSignOut = async () => {
+    try {
+      await signOut();
+    } catch (err) {
+      console.warn('Sign out error:', err);
+    } finally {
+      if (onSignOut) {
+        onSignOut();
+      } else {
+        onBackToWebsite();
+      }
+    }
+  };
 
   // Modals state
   const [activeAppointmentModal, setActiveAppointmentModal] = useState<{
@@ -70,22 +85,41 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({ onBackToWebsite, onOpe
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col md:flex-row text-slate-900 font-sans">
       {/* Mobile Top Header */}
-      <div className="md:hidden flex items-center justify-between px-4 py-3 bg-white border-b border-slate-200">
+      <div className="md:hidden flex items-center justify-between px-4 py-3 bg-white border-b border-slate-200 sticky top-0 z-20">
         <div className="flex items-center gap-2">
           <div className="w-8 h-8 rounded-lg bg-teal-600 flex items-center justify-center text-white">
             <Shield className="w-4 h-4" />
           </div>
-          <span className="font-bold text-sm text-slate-900 truncate">
-            {settings.clinic_name || 'Clinic Admin'}
+          <span className="font-bold text-sm text-slate-900 truncate max-w-[140px]">
+            {settings.clinic_name || 'PearlDent Admin'}
           </span>
         </div>
-        <button
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="p-2 text-slate-600 hover:text-slate-900"
-        >
-          {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-        </button>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={handleSignOut}
+            className="flex items-center gap-1 px-2.5 py-1.5 text-xs font-semibold text-rose-600 bg-rose-50 hover:bg-rose-100 rounded-lg border border-rose-200 cursor-pointer"
+            title="Log out of Admin"
+          >
+            <LogOut className="w-3.5 h-3.5" />
+            <span>Log Out</span>
+          </button>
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="p-2 text-slate-600 hover:text-slate-900 rounded-lg hover:bg-slate-100"
+            aria-label="Toggle Menu"
+          >
+            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
+        </div>
       </div>
+
+      {/* Mobile Drawer Backdrop */}
+      {mobileMenuOpen && (
+        <div
+          onClick={() => setMobileMenuOpen(false)}
+          className="fixed inset-0 bg-slate-950/60 z-25 md:hidden backdrop-blur-xs transition-opacity"
+        />
+      )}
 
       {/* Sidebar Navigation */}
       <aside
@@ -160,7 +194,7 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({ onBackToWebsite, onOpe
             </button>
 
             <button
-              onClick={signOut}
+              onClick={handleSignOut}
               className="w-full flex items-center gap-2.5 px-3 py-2 text-xs text-rose-400 hover:text-rose-300 hover:bg-rose-950/30 rounded-lg transition-colors cursor-pointer"
             >
               <LogOut className="w-4 h-4" />
@@ -183,7 +217,7 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({ onBackToWebsite, onOpe
             </span>
           </div>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3 sm:gap-4">
             <div className="text-right hidden sm:block">
               <div className="text-xs font-bold text-slate-900">{user?.email || 'Office Manager'}</div>
               <div className="text-[11px] text-teal-700">Authorized Administrator</div>
@@ -191,6 +225,14 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({ onBackToWebsite, onOpe
             <div className="w-8 h-8 rounded-full bg-teal-100 text-teal-800 font-bold text-xs flex items-center justify-center uppercase">
               {user?.email?.charAt(0) || 'A'}
             </div>
+            <button
+              onClick={handleSignOut}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-slate-600 hover:text-rose-600 hover:bg-rose-50 rounded-lg border border-slate-200 hover:border-rose-200 transition-colors cursor-pointer"
+              title="Sign Out of Admin Portal"
+            >
+              <LogOut className="w-3.5 h-3.5" />
+              <span className="hidden sm:inline">Log Out</span>
+            </button>
           </div>
         </header>
 

@@ -9,7 +9,7 @@ interface AdminLoginProps {
 }
 
 export const AdminLogin: React.FC<AdminLoginProps> = ({ onBackToWebsite, onOpenSqlModal }) => {
-  const { signIn, loading, authError, user, isAdmin, adminCheckCompleted } = useAuth();
+  const { signIn, signOut, loading, authError, user, isAdmin, adminCheckCompleted } = useAuth();
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [localError, setLocalError] = useState<string | null>(null);
@@ -31,6 +31,11 @@ export const AdminLogin: React.FC<AdminLoginProps> = ({ onBackToWebsite, onOpenS
     if (!result.success && result.error) {
       setLocalError(result.error);
     }
+  };
+
+  const handleSignOutUser = async () => {
+    await signOut();
+    setLocalError(null);
   };
 
   const displayError = localError || authError;
@@ -66,6 +71,21 @@ export const AdminLogin: React.FC<AdminLoginProps> = ({ onBackToWebsite, onOpenS
 
         {/* Login Box */}
         <div className="mt-8 bg-slate-800/90 backdrop-blur-md py-8 px-6 sm:px-10 rounded-3xl border border-slate-700 shadow-2xl">
+          {user && (
+            <div className="mb-6 p-3.5 rounded-xl bg-slate-900 border border-slate-700 flex items-center justify-between text-xs">
+              <div className="overflow-hidden mr-2">
+                <span className="text-slate-400 text-[11px] block">Active Session</span>
+                <span className="font-semibold text-white truncate block">{user.email}</span>
+              </div>
+              <button
+                type="button"
+                onClick={handleSignOutUser}
+                className="px-2.5 py-1 text-xs font-semibold text-rose-400 hover:text-rose-300 hover:bg-rose-950/30 rounded-lg border border-rose-900/40 transition-colors cursor-pointer shrink-0"
+              >
+                Log Out
+              </button>
+            </div>
+          )}
           {!isSupabaseConfigured && (
             <div className="mb-6 p-4 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs space-y-2">
               <div className="flex items-center gap-2 font-bold">

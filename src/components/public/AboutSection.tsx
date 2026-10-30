@@ -1,5 +1,5 @@
 import React from 'react';
-import { CLINIC_IMAGES } from '../../assets/clinicImages';
+import { CLINIC_IMAGES, handleImageFallback } from '../../assets/clinicImages';
 import { useClinic } from '../../context/ClinicContext';
 import { Check, ShieldCheck, Microscope, HeartHandshake, Sparkles } from 'lucide-react';
 
@@ -40,6 +40,7 @@ export const AboutSection: React.FC = () => {
                   alt="Dr. Jenains consulting with a dental patient reviewing digital scan results"
                   className="w-full h-[380px] sm:h-[420px] object-cover"
                   referrerPolicy="no-referrer"
+                  onError={(e) => handleImageFallback(e, 'consultation')}
                 />
               </div>
 
@@ -50,6 +51,7 @@ export const AboutSection: React.FC = () => {
                   alt="State of the art hygienic dental operatory chair and ergonomic equipment"
                   className="w-full h-48 object-cover"
                   referrerPolicy="no-referrer"
+                  onError={(e) => handleImageFallback(e, 'treatmentSuite')}
                 />
               </div>
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { CLINIC_IMAGES } from '../../assets/clinicImages';
+import { CLINIC_IMAGES, handleImageFallback } from '../../assets/clinicImages';
 import { CalendarCheck, ShieldCheck, HeartHandshake, Award, Clock } from 'lucide-react';
 import { useClinic } from '../../context/ClinicContext';
 
@@ -83,6 +83,7 @@ export const Hero: React.FC<HeroProps> = ({ onBookNow, onExploreServices }) => {
                 alt="Modern, bright PearlDent Oral Care reception and clinical care suites"
                 className="w-full h-[400px] sm:h-[480px] lg:h-[500px] object-cover object-center group-hover:scale-[1.02] transition-transform duration-700"
                 referrerPolicy="no-referrer"
+                onError={(e) => handleImageFallback(e, 'hero')}
               />
               
               {/* Subtle architectural lighting scrim */}

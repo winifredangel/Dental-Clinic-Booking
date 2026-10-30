@@ -1,10 +1,9 @@
 import React from 'react';
 import { useClinic } from '../../context/ClinicContext';
 import { Service } from '../../types/database';
-import { CLINIC_IMAGES } from '../../assets/clinicImages';
+import { CLINIC_IMAGES, CLINIC_FALLBACKS } from '../../assets/clinicImages';
 import { Clock, ArrowRight, CheckCircle2, Sparkles } from 'lucide-react';
 import { formatCurrency } from '../../lib/formatters';
-
 
 interface ServicesSectionProps {
   onSelectServiceToBook: (service: Service) => void;
@@ -14,15 +13,19 @@ interface ServicesSectionProps {
 const getServiceVisual = (name: string, index: number): string => {
   const lower = name.toLowerCase();
   if (lower.includes('whitening') || lower.includes('cosmetic') || lower.includes('smile')) {
-    return CLINIC_IMAGES.smileAesthetic;
+    return CLINIC_IMAGES.smileAesthetic || CLINIC_FALLBACKS.smileAesthetic;
   }
   if (lower.includes('exam') || lower.includes('consultation') || lower.includes('emergency')) {
-    return CLINIC_IMAGES.consultation;
+    return CLINIC_IMAGES.consultation || CLINIC_FALLBACKS.consultation;
   }
   if (lower.includes('hygiene') || lower.includes('cleaning') || lower.includes('restoration') || lower.includes('filling')) {
-    return CLINIC_IMAGES.treatmentSuite;
+    return CLINIC_IMAGES.treatmentSuite || CLINIC_FALLBACKS.treatmentSuite;
   }
-  const images = [CLINIC_IMAGES.consultation, CLINIC_IMAGES.treatmentSuite, CLINIC_IMAGES.smileAesthetic];
+  const images = [
+    CLINIC_IMAGES.consultation || CLINIC_FALLBACKS.consultation,
+    CLINIC_IMAGES.treatmentSuite || CLINIC_FALLBACKS.treatmentSuite,
+    CLINIC_IMAGES.smileAesthetic || CLINIC_FALLBACKS.smileAesthetic,
+  ];
   return images[index % images.length];
 };
 
@@ -78,6 +81,12 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectServic
                       alt={service.name}
                       className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
                       referrerPolicy="no-referrer"
+                      onError={(e) => {
+                        const fallback = CLINIC_FALLBACKS.treatmentSuite;
+                        if (e.currentTarget.src !== fallback) {
+                          e.currentTarget.src = fallback;
+                        }
+                      }}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-950/20 to-transparent pointer-events-none" />
 
